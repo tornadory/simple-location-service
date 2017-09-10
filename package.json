@@ -1,0 +1,34 @@
+{
+  "name": "simple-location-service",
+  "version": "1.0.0",
+  "description": "simple demo ",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/johnnyz2017/simple-location-service.git"
+  },
+  "author": "johnnyz",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/johnnyz2017/simple-location-service/issues"
+  },
+  "homepage": "https://github.com/johnnyz2017/simple-location-service#readme",
+  "dependencies": {
+    "body-parser": "^1.18.0",
+    "cookie-parser": "^1.4.3",
+    "debug": "^3.0.1",
+    "express": "^4.15.4",
+    "jade": "^1.11.0",
+    "mongodb": "^2.2.31",
+    "mongojs": "^2.4.1",
+    "morgan": "^1.8.2",
+    "serve-favicon": "^2.4.3"
+  },
+  "engines":{
+    "node":">=8.0.0"
+  }
+}
