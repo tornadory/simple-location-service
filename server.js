@@ -1,5 +1,57 @@
+var fs = require('fs');
 var app = require('express')();
 var bodyParser = require('body-parser');
+
+var sqlite3 = require('sqlite3').verbose();
+
+var DBFILE = "loc.db";
+
+var dbcreate = false;
+
+fs.exists(DBFILE, function(exist){
+    if(!exist){
+        fs.writeFile(DBFILE, {flag:'wx'}, function(err, data){
+           dbcreate = true;
+        });
+    }
+});
+
+let db = new sqlite3.Database(DBFILE, sqlite3.OPEN_READWRITE ,(err) => {
+  if(err){
+    return console.error(err.message);
+  }
+  console.log('Connected to the disk file SQlite database');
+});
+/*
+//memory db
+
+let db = new sqlite3.Database(':memory:', (err) => {
+  if(err){
+    return console.error(err.message);
+  }
+  console.log('Connected to the in-memory SQlite database');
+});
+*/
+
+db.serialize(function(){
+  if(dbcreate){
+    db.run('CREATE TABLE user (id INT, dt TEXT)');   
+    dbcreate = false;
+  }
+  var stmt = db.prepare('INSERT into user values(?,?)');
+  for(var i = 0; i< 10; i++){
+    var d = new Date();
+    var n = d.toLocaleTimeString();
+    console.log(n);
+    stmt.run(i, n);
+  }
+  console.log("stmt.finalize");
+  stmt.finalize();
+  
+//  db.each("SELECT id,dt from user", function(err, row){
+//    console.log('User id:' + row.id, row.dt);
+//  });
+});
 
 var port = process.env.PORT || 7777;
 
@@ -20,11 +72,18 @@ app.get('/location', function (req, res) {
 
 app.post('/location', function(req, res){
     var json = req.body;
-    console.log(json);
+    if(json.lat != undefined)
+      console.log(json.lat);
     location = json;
     res.send('Add new location Completed!');
 });
 
 app.listen(port, function() {
 	console.log('Starting node.js on port ' + port);
+});
+
+process.on('SIGINT', ()=>{
+    console.log('SIGINT callback');
+    db.close();
+    //app.close();
 });
