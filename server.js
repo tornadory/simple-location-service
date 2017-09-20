@@ -74,10 +74,17 @@ app.get('/location', function (req, res) {
 });
 
 app.get('/db', function (req, res) {
-    var result = [];
-    db.each("SELECT id,dt from user", function(err, row){
-        result.push({id:row.id, dt: row.dt});
-    });
+    var result = [{
+        id:"a",
+        dt:"dt"
+    },
+                  {
+                      id:"b",
+                      dt:"dtb"
+                  }];
+//    db.each("SELECT id,dt from user", function(err, row){
+//        result.push({id:row.id, dt: row.dt});
+//    });
     res.contentType('applicaiton/json');
 	res.send(JSON.stringify(result));
 });
