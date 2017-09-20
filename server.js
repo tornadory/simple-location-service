@@ -8,21 +8,21 @@ var DBFILE = "loc.db";
 
 var dbcreate = false;
 
-fs.exists(DBFILE, function(exist){
-    if(!exist){
-        fs.writeFile(DBFILE, {flag:'wx'}, function(err, data){
-           dbcreate = true;
-        });
-    }
-});
+//fs.exists(DBFILE, function(exist){
+//    if(!exist){
+//        fs.writeFile(DBFILE, {flag:'wx'}, function(err, data){
+//           dbcreate = true;
+//        });
+//    }
+//});
 
-let db = new sqlite3.Database(DBFILE, sqlite3.OPEN_READWRITE ,(err) => {
-  if(err){
-    return console.error(err.message);
-  }
-  console.log('Connected to the disk file SQlite database');
-});
-/*
+//let db = new sqlite3.Database(DBFILE, sqlite3.OPEN_READWRITE ,(err) => {
+//  if(err){
+//    return console.error(err.message);
+//  }
+//  console.log('Connected to the disk file SQlite database');
+//});
+
 //memory db
 
 let db = new sqlite3.Database(':memory:', (err) => {
@@ -31,13 +31,16 @@ let db = new sqlite3.Database(':memory:', (err) => {
   }
   console.log('Connected to the in-memory SQlite database');
 });
-*/
+
 
 db.serialize(function(){
-  if(dbcreate){
-    db.run('CREATE TABLE user (id INT, dt TEXT)');   
-    dbcreate = false;
-  }
+//  if(dbcreate){
+//    db.run('CREATE TABLE user (id INT, dt TEXT)');   
+//    dbcreate = false;
+//  }
+    
+  db.run('CREATE TABLE user (id INT, dt TEXT)');   
+    
   var stmt = db.prepare('INSERT into user values(?,?)');
   for(var i = 0; i< 10; i++){
     var d = new Date();
