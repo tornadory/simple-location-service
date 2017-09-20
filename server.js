@@ -82,9 +82,10 @@ app.get('/db', function (req, res) {
                       id:"b",
                       dt:"dtb"
                   }];
-//    db.each("SELECT id,dt from user", function(err, row){
-//        result.push({id:row.id, dt: row.dt});
-//    });
+    db.each("SELECT id,dt from user", function(err, row){
+        console.log("id - " + row.id + " dt - " + row.dt1);
+        result.push({id:row.id, dt: row.dt});
+    });
     res.contentType('applicaiton/json');
 	res.send(JSON.stringify(result));
 });
