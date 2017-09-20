@@ -70,6 +70,15 @@ app.get('/location', function (req, res) {
 	res.send(location);
 });
 
+app.get('/db', function (req, res) {
+    var result = [];
+    db.each("SELECT id,dt from user", function(err, row){
+        result.push({id:row.id, dt: row.dt});
+    }
+    res.contentType('applicaiton/json');
+	res.send(JSON.stringify(result));
+});
+
 app.post('/location', function(req, res){
     var json = req.body;
     if(json.lat != undefined)
