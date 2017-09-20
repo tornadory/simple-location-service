@@ -8,38 +8,39 @@ var DBFILE = "loc.db";
 
 var dbcreate = false;
 
-//fs.exists(DBFILE, function(exist){
-//    if(!exist){
-//        fs.writeFile(DBFILE, {flag:'wx'}, function(err, data){
-//           dbcreate = true;
-//        });
-//    }
-//});
+fs.exists(DBFILE, function(exist){
+    if(!exist){
+        fs.writeFile(DBFILE, {flag:'wx'}, function(err, data){
+           dbcreate = true;
+        });
+    }
+});
 
-//let db = new sqlite3.Database(DBFILE, sqlite3.OPEN_READWRITE ,(err) => {
-//  if(err){
-//    return console.error(err.message);
-//  }
-//  console.log('Connected to the disk file SQlite database');
-//});
-
-//memory db
-
-let db = new sqlite3.Database(':memory:', (err) => {
+let db = new sqlite3.Database(DBFILE, sqlite3.OPEN_READWRITE ,(err) => {
   if(err){
     return console.error(err.message);
   }
-  console.log('Connected to the in-memory SQlite database');
+  console.log('Connected to the disk file SQlite database');
 });
+
+//memory db
+
+//let db = new sqlite3.Database(':memory:', (err) => {
+//  if(err){
+//    return console.error(err.message);
+//  }
+//  console.log('Connected to the in-memory SQlite database');
+//});
 
 
 db.serialize(function(){
-//  if(dbcreate){
-//    db.run('CREATE TABLE user (id INT, dt TEXT)');   
-//    dbcreate = false;
-//  }
+  if(dbcreate){
+    console.log("create table user");
+    db.run('CREATE TABLE user (id INT, dt TEXT)');   
+    dbcreate = false;
+  }
     
-  db.run('CREATE TABLE user (id INT, dt TEXT)');   
+//  db.run('CREATE TABLE user (id INT, dt TEXT)');   
     
   var stmt = db.prepare('INSERT into user values(?,?)');
   for(var i = 0; i< 10; i++){
@@ -74,19 +75,12 @@ app.get('/location', function (req, res) {
 });
 
 app.get('/db', function (req, res) {
-    var result = [{
-        id:"a",
-        dt:"dt"
-    },
-                  {
-                      id:"b",
-                      dt:"dtb"
-                  }];
+    var result = [];
     db.each("SELECT id,dt from user", function(err, row){
         console.log("id - " + row.id + " dt - " + row.dt);
         result.push({id:row.id.toString(), dt: row.dt.toString()});
     });
-    console.log(result.toString());
+    console.log("result.tostring " + result.toString());
     res.contentType('applicaiton/json');
 	res.send(JSON.stringify(result));
 });
