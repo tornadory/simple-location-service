@@ -83,8 +83,8 @@ app.get('/db', function (req, res) {
                       dt:"dtb"
                   }];
     db.each("SELECT id,dt from user", function(err, row){
-        console.log("id - " + row.id + " dt - " + row.dt1);
-        result.push({id:row.id, dt: row.dt});
+        console.log("id - " + row.id + " dt - " + row.dt);
+        result.push({id:row.id.toString(), dt: row.dt.toString()});
     });
     res.contentType('applicaiton/json');
 	res.send(JSON.stringify(result));
