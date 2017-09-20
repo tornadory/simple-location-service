@@ -86,6 +86,7 @@ app.get('/db', function (req, res) {
         console.log("id - " + row.id + " dt - " + row.dt);
         result.push({id:row.id.toString(), dt: row.dt.toString()});
     });
+    console.log(result.toString());
     res.contentType('applicaiton/json');
 	res.send(JSON.stringify(result));
 });
