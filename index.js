@@ -21,16 +21,13 @@ app.get('/', function (req, res) {
 				// insert new data.
 			});
 		} 
-		res.send('<h1>Hello Node.js</h1>');
+		res.send('<h1>Hello, nothing on main page</h1>');
 	});
     
     console.log('try to get /');
 
 });
 
-app.get('/db', function (req, res) {
-	res.send(db.hostInfo());
-});
 
 app.get('/user', function (req, res) {
 	db.users.find(function(err, docs) {
@@ -52,6 +49,31 @@ app.post('/newuser', function (req, res) {
     console.log(json);
 
 	db.users.insert(json, function(err, docs) {
+		res.send('Add new ' + docs.name + ' Completed!');
+	});
+
+});
+
+app.get('/locations', function(req, res){
+    db.locations.find(function(err, docs) {
+		res.json(docs);
+	});
+});
+
+app.get('/locations/:username', function (req, res) {
+	var username = req.params.username;
+
+	db.locations.find({username: username}, function(err, docs) {
+		res.json(docs);
+	});
+});
+
+app.post('/addlocation', function (req, res) {
+    console.log('try to add new location');
+	var json = req.body;
+    console.log(json);
+
+	db.locations.insert(json, function(err, docs) {
 		res.send('Add new ' + docs.name + ' Completed!');
 	});
 
