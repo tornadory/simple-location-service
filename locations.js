@@ -1,10 +1,9 @@
 var locations = [
 	{
 		"username": "test",
-		"location": {
-            "latitude":"",
-            "longitude":""
-        },
+        "latitude":"",
+        "longitude":"",
+        "address":"",
 		"time": ""
 	}
 ];
