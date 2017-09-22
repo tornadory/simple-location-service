@@ -35,10 +35,18 @@ app.get('/users', function (req, res) {
 	});
 });
 
-app.get('/user/:id', function (req, res) {
-	var id = parseInt(req.params.id);
+//app.get('/user/:id', function (req, res) {
+//	var id = parseInt(req.params.id);
+//
+//	db.users.findOne({id: id}, function(err, docs) {
+//		res.json(docs);
+//	});
+//});
 
-	db.users.findOne({id: id}, function(err, docs) {
+app.get('/user/:username', function (req, res) {
+	var username = req.params.username;
+
+	db.users.findOne({username: username}, function(err, docs) {
 		res.json(docs);
 	});
 });
@@ -52,6 +60,17 @@ app.post('/newuser', function (req, res) {
 		res.send('Add new ' + docs.name + ' Completed!');
 	});
 
+});
+
+app.get('/deleteusers', function (req, res) {
+    db.users.remove({});
+    res.send('get delete request to delete all locations');
+});
+
+app.get('/deleteuser/:username', function (req, res) {
+    var username = req.params.username;
+    db.users.remove({username:username});
+    res.send('get delete request to delete user ' + username);
 });
 
 app.get('/locations', function(req, res){
