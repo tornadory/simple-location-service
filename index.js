@@ -96,16 +96,14 @@ app.get('/deletelocations', function (req, res) {
     console.log('try to delete all locations');
     
     db.locations.remove({});
-
-//	db.locations.insert(json, function(err, docs) {
-//		res.send('Add new ' + docs.name + ' Completed!');
-//	});
+    res.send('get delete request to delete all locations');
 });
 
 app.get('/deletelocations/:username', function (req, res) {
     var username = req.params.username;
     console.log('try to delete all locations under ' + username);    
     db.locations.remove({username:username});
+    res.send('get delete request to delete all locations of user ' + username);
 });
 
 
