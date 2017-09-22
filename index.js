@@ -29,7 +29,7 @@ app.get('/', function (req, res) {
 });
 
 
-app.get('/user', function (req, res) {
+app.get('/users', function (req, res) {
 	db.users.find(function(err, docs) {
 		res.json(docs);
 	});
@@ -66,6 +66,16 @@ app.get('/locations/:username', function (req, res) {
 	db.locations.find({username: username}, function(err, docs) {
 		res.json(docs);
 	});
+});
+
+app.delete('/locations', function(req, res){
+    res.send('get delete request to delete all locations');
+});
+
+app.delete('/locations/:username', function(req, res){
+    var username = req.params.username;
+    
+    res.send('get delete request to delete all locations of user ' + username);
 });
 
 app.post('/addlocation', function (req, res) {
