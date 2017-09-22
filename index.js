@@ -92,7 +92,7 @@ app.delete('/locations/:username', function(req, res){
     res.send('get delete request to delete all locations of user ' + username);
 });
 
-app.post('/deletelocations', function (req, res) {
+app.get('/deletelocations', function (req, res) {
     console.log('try to delete all locations');
     
     db.locations.remove({});
@@ -102,7 +102,7 @@ app.post('/deletelocations', function (req, res) {
 //	});
 });
 
-app.post('/deletelocations/:username', function (req, res) {
+app.get('/deletelocations/:username', function (req, res) {
     var username = req.params.username;
     console.log('try to delete all locations under ' + username);    
     db.locations.remove({username:username});
