@@ -68,15 +68,7 @@ app.get('/locations/:username', function (req, res) {
 	});
 });
 
-app.delete('/locations', function(req, res){
-    res.send('get delete request to delete all locations');
-});
 
-app.delete('/locations/:username', function(req, res){
-    var username = req.params.username;
-    
-    res.send('get delete request to delete all locations of user ' + username);
-});
 
 app.post('/addlocation', function (req, res) {
     console.log('try to add new location');
@@ -88,6 +80,34 @@ app.post('/addlocation', function (req, res) {
 	});
 
 });
+
+//delete no function
+app.delete('/locations', function(req, res){
+    res.send('get delete request to delete all locations');
+});
+
+app.delete('/locations/:username', function(req, res){
+    var username = req.params.username;
+    
+    res.send('get delete request to delete all locations of user ' + username);
+});
+
+app.post('/deletelocations', function (req, res) {
+    console.log('try to delete all locations');
+    
+    db.locations.remove({});
+
+//	db.locations.insert(json, function(err, docs) {
+//		res.send('Add new ' + docs.name + ' Completed!');
+//	});
+});
+
+app.post('/deletelocations/:username', function (req, res) {
+    var username = req.params.username;
+    console.log('try to delete all locations under ' + username);    
+    db.locations.remove({username:username});
+});
+
 
 app.listen(port, function() {
 	console.log('Starting node.js on port ' + port);
