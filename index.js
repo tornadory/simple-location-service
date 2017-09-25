@@ -92,11 +92,15 @@ app.get('/locations/:username', function (req, res) {
 app.post('/addlocation', function (req, res) {
     //console.log('try to add new location');
 	var json = req.body;
+    
+    db.locations.find({time: json.time}, function(err, docs) {
+		res.json(docs);
+	});
     //console.log(json);
-    db.locations.findOne({time: json.time, latitude: json.latitude, longtitude: json.longtitude}, function(err, docs){
-        res.json(docs);
-        return;
-    });
+//    db.locations.findOne({time: json.time, latitude: json.latitude, longtitude: json.longtitude}, function(err, docs){
+//        res.json(docs);
+//        return;
+//    });
 //    if(sameRec.length != 0){
 //        res.send(sameRec);
 //        return;
