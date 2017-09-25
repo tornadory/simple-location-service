@@ -137,6 +137,16 @@ app.get('/deletelocations/:username', function (req, res) {
     res.send('get delete request to delete all locations of user ' + username);
 });
 
+app.get('/dropdups/locations', function(req, res){
+    db.locations.ensureIndex({time:1},{unique:true, dropDups:true});
+    res.send('try to remove all duplications in locations via time');
+});
+
+app.get('/dropdups/users', function(req, res){
+    db.users.ensureIndex({deviceID:1},{unique:true, dropDups:true});
+    res.send('try to remove all duplications in locations via time');
+});
+
 
 app.listen(port, function() {
 	console.log('Starting node.js on port ' + port);
