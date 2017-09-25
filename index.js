@@ -93,10 +93,10 @@ app.post('/addlocation', function (req, res) {
     //console.log('try to add new location');
 	var json = req.body;
     //console.log(json);
-    db.locations.find({time: json.time, latitude: json.latitude, longtitude: json.longtitude}, function(err, docs){
+    db.locations.findOne({time: json.time, latitude: json.latitude, longtitude: json.longtitude}, function(err, docs){
         res.json(docs);
         return;
-    }).limit(1);
+    });
 //    if(sameRec.length != 0){
 //        res.send(sameRec);
 //        return;
