@@ -90,9 +90,14 @@ app.get('/locations/:username', function (req, res) {
 
 
 app.post('/addlocation', function (req, res) {
-    console.log('try to add new location');
+    //console.log('try to add new location');
 	var json = req.body;
-    console.log(json);
+    //console.log(json);
+    var sameRec = db.locations.find({time: json.time, latitude: json.latitude, longtitude: json.longtitude}).limit(1);
+    if(sameRec){
+        res.send('have existed ...');
+        return;
+    }
 
 	db.locations.insert(json, function(err, docs) {
 		res.send('Add new ' + docs.name + ' Completed!');

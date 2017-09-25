@@ -17,3 +17,11 @@ exports.findByUserName = function (username) {
 		if (locations[i].username == username) return locations[i];
 	}
 };
+
+exports.findByLocationTime = function(latitude, longtitude, time){
+    for(var i = 0; i < locations.length; i++){
+        if(locations.time == time && locations[i].latitude == latitude && locations[i].longitude == longtitude){
+            return locations[i];
+        }
+    }
+}
