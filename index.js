@@ -94,7 +94,7 @@ app.post('/addlocation', function (req, res) {
 	var json = req.body;
     //console.log(json);
     var sameRec = db.locations.find({time: json.time, latitude: json.latitude, longtitude: json.longtitude}).limit(1);
-    if(sameRec != []){
+    if(sameRec.length != 0){
         res.send('have existed ...');
         return;
     }
