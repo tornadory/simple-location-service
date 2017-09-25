@@ -147,6 +147,13 @@ app.get('/dropdups/users', function(req, res){
     res.send('try to remove all duplications in locations via time');
 });
 
+app.get('/dropindexes/locations', function(req, res){
+    console.log(db.locations.getIndexes());
+    db.locations.dropIndexes();
+    console.log(db.locations.getIndexes());
+    res.send('try to remove all indexes');
+});
+
 
 app.listen(port, function() {
 	console.log('Starting node.js on port ' + port);
